@@ -48,17 +48,24 @@ class StudentController {
       return res.status(400).json({ error: 'E-mail is required' });
     }
 
-    const { email } = req.body;
+    const { id, email } = req.body;
 
-    const student = await Student.findOne({
-      where: { email },
-    });
+    const student = await Student.findByPk(id);
+
+    if (email !== student.email) {
+      const studentExists = await Student.findOne({
+        where: { email },
+      });
+      if (studentExists) {
+        return res.status(400).send({ error: 'E-mail already used' });
+      }
+    }
 
     if (!student) {
       return res.json({ error: 'Student does not exists' });
     }
 
-    const { id, name, idade, peso, altura } = await student.update(req.body);
+    const { name, idade, peso, altura } = await student.update(req.body);
 
     return res.json({
       id,
