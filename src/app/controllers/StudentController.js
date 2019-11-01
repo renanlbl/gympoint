@@ -48,7 +48,8 @@ class StudentController {
       return res.status(400).json({ error: 'E-mail is required' });
     }
 
-    const { id, email } = req.body;
+    const { email } = req.body;
+    const { id } = req.params;
 
     const student = await Student.findByPk(id);
 

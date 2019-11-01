@@ -14,13 +14,16 @@ routers.post('/sessions', SessionController.store);
 routers.use(authMiddleware);
 
 routers.post('/students', StudentController.store);
-routers.put('/students', StudentController.update);
+routers.put('/students/:id', StudentController.update);
 
 routers.post('/plans', PlanController.store);
 routers.get('/plans', PlanController.index);
 routers.put('/plans/:id', PlanController.update);
 routers.delete('/plans/:id', PlanController.delete);
 
+routers.get('/registration', RegistrationController.index);
 routers.post('/registration', RegistrationController.store);
+routers.put('/registration/:id', RegistrationController.update);
+routers.delete('/registration/:id', RegistrationController.delete);
 
 export default routers;
